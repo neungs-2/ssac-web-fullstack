@@ -28,7 +28,7 @@ do
     cnt=$(($cnt+1))
 done
 
-# do start
+# do restart
 docker="ssacdev"
 ncloud="ssac"
 ip=ssach
@@ -42,6 +42,5 @@ elif [ `uname -n` == $ncloud ]; then
     for opt in ${options[@]}
     do systemctl restart $opt
     done
-
 fi
 
