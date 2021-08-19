@@ -54,7 +54,7 @@ do
 done
 ```
 
-- mysql 실행시 systemctl을 이용하면 mysqld로 입력
+- mysql daemon 실행시 systemctl을 이용하면 mysqld로 입력
 - 명령어 옵션은 mysql 이므로 mysqld로 변경
 
 <br><br>
