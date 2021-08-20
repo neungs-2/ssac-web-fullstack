@@ -26,6 +26,13 @@ elif [ $1 != "mysql" ] && [ $1 != "nginx" ]; then
     echo "Usage: Start < mysql || nginx >"
     exit 0
 
+elif [ $# -eq 2 ]; then
+    if [ $2 != "mysql" ] && [ $2 != "nginx" ]; then
+        echo "Input correct option"
+        echo "Usage: Start < mysql || nginx >"
+        exit 0
+    fi
+
 elif [ $# -gt 2 ]; then
     echo "Choose one or two option(s)."
     echo "Usage: Start < mysql || nginx >"
