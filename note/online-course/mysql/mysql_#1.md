@@ -9,7 +9,7 @@
 ```sh
 $user> docker search mysql
 $user> docker pull mysql:5.7 # 5.7버전
-$user> docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=r! --name <docker name> mysql:5.7
+$user> docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=r! --name <container name> mysql:5.7
 # hostname 도 설정해주면 좋을듯
 ```
 
@@ -20,8 +20,8 @@ $user> docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=r! --name <docker name>
 ## 접속하기
 
 ```sh
-$user> docker start <docker name>
-$user> docker exec -it mysql5 bash
+$user> docker start <container name>
+$user> docker exec -it <container name> bash
 $user> mysql -u <user> -p
 ```
 
@@ -49,7 +49,10 @@ mysql> drop database <db-name>;
 
 ## User, Host 생성하기
 
-- 특정 서버에서만 접속하게 하려면 host에 ip를 입력하여 user 생성
+- 특정 서버, PC에서만 접속하게 하려면 host에 ip를 입력하여 user 생성
+- localhost의 ip: 127.0.0.1
+
+<br>
 
 ```sql
 # User 생성
@@ -81,8 +84,19 @@ mysql> grant all privileges on <DB>.* to '<user-name>'@'<host>';
 mysql> flush privileges;
 
 # 권한 확인
-mysql> show grants for '<user-name>'@'<host>';
+mysql> show grants for '<user-name>'@'<host>';  -- @<host> 생략시 모든 host에 대해 조회
 
 # 권한 삭제(취소)
 mysql> revoke all privileges on <db-name>.* from <user-name>@'<host>';
 ```
+
+<br>
+
+---
+
+## Note.
+
+- Oracle : SQL developer 공식 tool
+- MySQL : MySQL Workbench 공식 tool
+- show databases; 하면 해당 user의 권한이 있는 db만 나옴
+- host가 달라지면 같은 user라도 다른 계정처럼 보임
