@@ -131,11 +131,9 @@ echo "$RET"
 
 ---
 
-## Tip.
+## set
 
 <br>
-
-### set
 
 - 위치 매개변수 $1, $2, $3, ...을 설정
 - -a 처럼 하이픈이 있으면 설정으로 인식
@@ -162,3 +160,41 @@ $> date | awk '{print $5}'  # 시간:분:초
 $> set $(date)
 $> echo $5    # 시간:분:초
 ```
+
+<br>
+
+---
+
+## Shell Script를 명령으로 등록하기
+
+<br>
+
+### 방법 1. alias를 이용하는 방식
+
+- `.bashrc`나 `.bash_profile` 에 해당 셸 스크립트의 alias를 주어 등록
+  - ex) alias datefmt='/root/bin/datefmt.sh'
+
+<br>
+
+### 방법 2. 시스템 명령 디렉토리에 셸 스크립트를 위치시키거나 심볼릭 링크를 거는 방식
+
+<br>
+
+sbin: 시스템 관리와 관련된 명령 위치<br>
+bin: 일반적인 명령 위치<br>
+
+- **/sbin** or **/bin**
+  -/bin/sh, /bin/bash처럼 시스템(커널)에 가장 가까운 명령들이 위치하는 대표적인 시스템 명령의 경로
+
+  - 이들은 자체 디렉토리로도 사용가능하지만, 보통 각각 /usr/sbin, /usr/bin으로 심볼릭 링크를 걸어 놓음
+
+- **/usr/sbin** or **/usr/bin**
+
+  - grep, ln, ls, cat, find, yum 등 모두를 위한 명령 (일반적 리눅스 명령)들이 위치
+  - 개인이 만든 명령은 위치하지 않음
+
+- **/usr/local/sbin** or **/usr/local/bin**
+  - 사용자가 만든 시스템 관리에 사용되는 명령들을 가질 시스템 디력토리
+  - 사용자가 만든 일반적인 명령들을 가진 디렉토리
+
+<br>
