@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+@import 'reset.css';
+
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Do Hyeon', sans-serif;
+  color: rgba(0, 0, 0, 0.8);
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  margin: 50px 0;
+  font-size: 90px;
+}
+
+/* rule */
+.rule__title {
+  margin: 20px 0px;
+  font-size: 40px;
+}
+
+.rule-box {
+  display: inline-flex;
+  color: seashell;
+  background-color: teal;
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
+.rule-box__guide {
+  text-align: left;
+  font-size: 25px;
+  line-height: 1.4;
+}
+
+/* result */
+.result {
+  margin: 40px 0;
+  font-size: 40px;
+  color: tomato;
+}
+
+/* table */
+.table {
+  margin-bottom: 40px;
+  font-size: 30px;
+  border-spacing: 30px;
+  border-collapse: collapse;
+}
+
+td {
+  padding: 7px;
+}
+
+/* game */
+.game {
+  padding: 20px;
+  width: 600px;
+  height: 170px;
+  border-radius: 50px;
+  background-color: gainsboro;
+}
+
+.game__text-difficulty,
+.game__radio {
+  margin-bottom: 20px;
+  font-size: 25px;
+}
+
+.game__text-input {
+  font-size: 30px;
+  margin: 20px 0;
+}
+
+.game__input {
+  margin: 10px;
+  width: 130px;
+  height: 40px;
+}
+
+.game__check,
+.game__restart {
+  font-size: 20px;
+}

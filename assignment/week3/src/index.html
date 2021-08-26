@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <link rel="stylesheet" href="css/styles.css" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Play Baseball Game</title>
+    <script async src="baseball.js"></script>
+  </head>
+
+  <body>
+    <h1 class="title">숫자 야구 게임</h1>
+
+    <div class="rule">
+      <h3 class="rule__title">규칙</h3>
+      <div class="rule-box">
+        <p class="rule-box__guide">
+          <!-- 1. 난이도를 설정합니다. (상: 숫자 4개, 중: 숫자 3개, 하: 숫자 2개)<br /> -->
+          1. 3자리 숫자 중 각 자리의 숫자가 일치하지 않는 수를 입력합니다.
+          <br />
+          2. 숫자와 그 자리가 맞은 개수만큼 Strike가 출력됩니다. <br />
+          3. 숫자는 맞았지만 자리가 틀렸다면 Ball이 출력됩니다. <br />
+          4. 이닝은 1회부터 9회까지 진행됩니다. <br />
+          5. 9회 이내로 3 Strike이면 승리합니다.
+        </p>
+      </div>
+    </div>
+
+    <main>
+      <div class="result" invisible></div>
+      <table class="table">
+        <thead class="table__header">
+          <tr class="table__inning">
+            <td></td>
+            <td>1회</td>
+            <td>2회</td>
+            <td>3회</td>
+            <td>4회</td>
+            <td>5회</td>
+            <td>6회</td>
+            <td>7회</td>
+            <td>8회</td>
+            <td>9회</td>
+          </tr>
+        </thead>
+        <tbody class="table__body">
+          <tr class="table__strike">
+            <td>Strike</td>
+          </tr>
+          <tr class="table__ball">
+            <td>Ball</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="game">
+        <div class="game__text-input">0~9 범위의 숫자를 3개 입력하세요.</div>
+        <form class="game__form" onsubmit="return false;">
+          <input
+            class="game__input"
+            type="number"
+            min="0"
+            max="999"
+            required
+            oninput="handleInput(this, 3)"
+            placeholder="ex) 123"
+          />
+        </form>
+        <button class="game__check">Check</button>
+        <button class="game__restart">Restart</button>
+      </div>
+    </main>
+  </body>
+</html>
