@@ -35,13 +35,6 @@ body {
   line-height: 1.4;
 }
 
-/* result */
-.result {
-  margin: 40px 0;
-  font-size: 40px;
-  color: tomato;
-}
-
 /* table */
 .table {
   margin-bottom: 40px;

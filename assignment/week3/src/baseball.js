@@ -5,29 +5,23 @@ const $tableStrike = document.querySelector('.table__strike');
 const $tableBall = document.querySelector('.table__ball');
 
 const numLength = 3;
-let arrAnswer;
 let inning = 0;
+let arrAnswer;
 
-// const init = function () {
-//   removeTD($tableStrike, inning + 1);
-//   removeTD($tableBall, inning + 1);
-//   inning = 0;
-//   window.location.reload();
-// };
-
-const init = function () {
-  window.location.reload();
-};
+const init = () => window.location.reload();
+// removeTD($tableStrike, inning);
+// removeTD($tableBall, inning);
+// inning = 0;
 
 // input 길이 제한
-function handleInput(obj, maxLength) {
+const handleInput = (obj, maxLength) => {
   if (obj.value.length > maxLength) {
     obj.value = obj.value.substr(0, maxLength);
   }
-}
+};
 
 // input 확인
-const makeSureInput = function (inputArray) {
+const makeSureInput = (inputArray) => {
   const inputSet = new Set(inputArray);
   if ($inputNumber.value == '' || inputSet.size < numLength) {
     alert('규칙에 맞는 숫자를 입력해주세요.');
@@ -36,7 +30,7 @@ const makeSureInput = function (inputArray) {
 };
 
 // 정답 생성
-const createAnswer = function () {
+const createAnswer = () => {
   const answerList = new Array();
   let cnt = 0;
 
@@ -53,36 +47,22 @@ const createAnswer = function () {
 };
 
 // table 성적 추가
-const insertTD = function (score, parent) {
+const insertTD = (score, parent) => {
   let newTD = document.createElement('td');
   newTD.innerHTML = '' + score;
   parent.appendChild(newTD);
 };
 
-// table 성적 제거
-const removeTD = function (parent, iteration) {
-  for (i = 0; i < iteration; i++) {
-    parent.removeChild(parent.childNodes[2]);
-  }
-};
-
-function sleep(ms) {
-  return new Promise((r) => setTimeout(r, ms));
-}
-
 // check 버튼 클릭 시
 $checkBtn.addEventListener('click', function () {
   const arrInput = ('' + $inputNumber.value).split('');
-  if (makeSureInput(arrInput)) {
-    return 0;
-  }
+  if (makeSureInput(arrInput)) return;
 
-  if (inning === 0) {
-    arrAnswer = createAnswer();
-  }
-  inning++;
   let strikeCnt = 0;
   let ballCnt = 0;
+  inning++;
+
+  if (inning === 1) arrAnswer = createAnswer();
 
   for (let i = 0; i < numLength; i++) {
     if (arrAnswer[i] == arrInput[i]) {
@@ -108,3 +88,10 @@ $checkBtn.addEventListener('click', function () {
 $restartBtn.addEventListener('click', function () {
   init();
 });
+
+// // table 성적 제거
+// const removeTD = function (parent, iteration) {
+//   for (i = 0; i < iteration; i++) {
+//     parent.removeChild(parent.childNodes[2]);
+//   }
+// };
