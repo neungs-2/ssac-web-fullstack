@@ -36,6 +36,7 @@ const createAnswer = () => {
 
   while (cnt < numLength) {
     let answerNum = Math.floor(Math.random() * 10);
+    if (cnt == 0 && answerNum == 0) continue;
     if (answerList.includes(answerNum)) {
       continue;
     } else {
