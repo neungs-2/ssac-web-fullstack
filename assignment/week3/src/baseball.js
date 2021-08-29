@@ -4,14 +4,15 @@ const $restartBtn = document.querySelector('.game__restart');
 const $tableStrike = document.querySelector('.table__strike');
 const $tableBall = document.querySelector('.table__ball');
 
-const numLength = 3;
+const NUM_LENGTH = 3;
 let inning = 0;
 let arrAnswer;
 
-const init = () => window.location.reload();
-// removeTD($tableStrike, inning);
-// removeTD($tableBall, inning);
-// inning = 0;
+const initGame = () => {
+  removeCell($tableStrike, inning);
+  removeCell($tableBall, inning);
+  inning = 0;
+};
 
 // input 길이 제한
 const handleInput = (obj, maxLength) => {
@@ -23,7 +24,7 @@ const handleInput = (obj, maxLength) => {
 // input 확인
 const makeSureInput = (inputArray) => {
   const inputSet = new Set(inputArray);
-  if ($inputNumber.value == '' || inputSet.size < numLength) {
+  if ($inputNumber.value == '' || inputSet.size < NUM_LENGTH) {
     alert('규칙에 맞는 숫자를 입력해주세요.');
     return true;
   }
@@ -34,7 +35,7 @@ const createAnswer = () => {
   const answerList = new Array();
   let cnt = 0;
 
-  while (cnt < numLength) {
+  while (cnt < NUM_LENGTH) {
     let answerNum = Math.floor(Math.random() * 10);
     if (cnt == 0 && answerNum == 0) continue;
     if (answerList.includes(answerNum)) {
@@ -48,10 +49,25 @@ const createAnswer = () => {
 };
 
 // table 성적 추가
-const insertTD = (score, parent) => {
-  let newTD = document.createElement('td');
-  newTD.innerHTML = '' + score;
-  parent.appendChild(newTD);
+const insertCell = (score, rowObj) => {
+  const newCell = rowObj.insertCell(-1);
+  const newScore = document.createTextNode('' + score);
+  newCell.appendChild(newScore);
+};
+
+// table 성적 제거
+const removeCell = (rowObj, iteration) => {
+  for (i = 0; i < iteration; i++) {
+    rowObj.deleteCell(1);
+  }
+};
+
+// Alert & 초기화
+const slowAlert = (message) => {
+  window.setTimeout(() => {
+    alert(message);
+    init();
+  }, 100);
 };
 
 // check 버튼 클릭 시
@@ -65,7 +81,7 @@ $checkBtn.addEventListener('click', function () {
 
   if (inning === 1) arrAnswer = createAnswer();
 
-  for (let i = 0; i < numLength; i++) {
+  for (let i = 0; i < NUM_LENGTH; i++) {
     if (arrAnswer[i] == arrInput[i]) {
       strikeCnt++;
     } else if (arrAnswer.includes(+arrInput[i])) {
@@ -73,15 +89,13 @@ $checkBtn.addEventListener('click', function () {
     }
   }
 
-  insertTD(String(strikeCnt), $tableStrike);
-  insertTD(String(ballCnt), $tableBall);
+  insertCell(String(strikeCnt), $tableStrike);
+  insertCell(String(ballCnt), $tableBall);
 
   if (strikeCnt === 3) {
-    alert('승리하셨습니다!!');
-    init();
+    slowAlert('승리하셨습니다!!');
   } else if (inning === 9) {
-    alert('패배하셨습니다.\n정답:' + arrAnswer.join(''));
-    init();
+    slowAlert('패배하셨습니다.\n정답:' + arrAnswer.join(''));
   }
 });
 
@@ -89,10 +103,3 @@ $checkBtn.addEventListener('click', function () {
 $restartBtn.addEventListener('click', function () {
   init();
 });
-
-// // table 성적 제거
-// const removeTD = function (parent, iteration) {
-//   for (i = 0; i < iteration; i++) {
-//     parent.removeChild(parent.childNodes[2]);
-//   }
-// };
