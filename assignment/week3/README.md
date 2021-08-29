@@ -77,4 +77,13 @@
 
 ![image](https://user-images.githubusercontent.com/60606025/131172350-4ce1fe25-608c-4b85-a02f-b66fa645e82d.png)
 
+<br>
+
+### 해결
+
+- td 추가 함수 변경
+  - `appendChild(domObject)` --> `insertCell(-1)`
+- td 제거 함수 변경
+  - `removeChild(parent.childNodes[n])` --> `deleteCell(1)`
+
 ---
