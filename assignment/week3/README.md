@@ -86,4 +86,24 @@
 - td 제거 함수 변경
   - `removeChild(parent.childNodes[n])` --> `deleteCell(1)`
 
+<br>
+
 ---
+
+## Etc.
+
+<br>
+
+### File Copy Local to Docker Container
+
+```bash
+$> docker cp <파일 경로> <컨테이너명>:<복사할 경로>
+```
+
+<br>
+
+### File Copy Docker to NCP Server
+
+```bash
+$> rsync -avz -e 'ssh -p <port number>' <File> <hostname>@<IP>:<경로>
+```
