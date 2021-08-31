@@ -36,6 +36,8 @@ where sbj.name = '역사' group by a;
 
 <br>
 
+---
+
 ## Outer Join
 
 - 기준이 되는, 보고자 하는 테이블 쪽으로
