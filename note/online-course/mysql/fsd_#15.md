@@ -38,14 +38,6 @@ mysql> revoke all privileges on dooodb.* from dooo@'%';
 
 <br>
 
-### Deny
-
-```sql
-
-```
-
-<br>
-
 ### Tip. 현재 접속 유저 확인
 
 ```sql
@@ -154,15 +146,6 @@ mysql> drop table <table-name>;
 
 <br>
 
-### Rename
-
-```sql
-
-
-```
-
-<br>
-
 ### Truncate
 
 ```sql
@@ -184,6 +167,8 @@ Truncate <table-name>;
   - 되돌리기 불가능
 
 <br>
+
+---
 
 ## Column Type
 
