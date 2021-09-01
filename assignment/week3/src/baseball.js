@@ -66,8 +66,8 @@ const removeCell = (rowObj, iteration) => {
 const slowAlert = (message) => {
   window.setTimeout(() => {
     alert(message);
-    init();
-  }, 100);
+    initGame();
+  }, 200);
 };
 
 // check 버튼 클릭 시
@@ -101,5 +101,5 @@ $checkBtn.addEventListener('click', function () {
 
 // restart 버튼 클릭 시
 $restartBtn.addEventListener('click', function () {
-  init();
+  initGame();
 });
