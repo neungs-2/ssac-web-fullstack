@@ -22,11 +22,7 @@
 
 <br>
 
-## **Link** : https://ssac3.ga/
-
-- 접속이 되지 않으면 DNS 서버를 다음과 같이 바꿀 것
-  - 기본 : 8.8.8.8
-  - 보조 : 8.8.4.4
+## **Link** : https://techfulness.topician.com/
 
 <br>
 
@@ -81,9 +77,9 @@
 
 ### 해결
 
-- td 추가 함수 변경
+- td 추가 메서드 변경
   - `appendChild(domObject)` --> `insertCell(-1)`
-- td 제거 함수 변경
+- td 제거 메서드 변경
   - `removeChild(parent.childNodes[n])` --> `deleteCell(1)`
 
 <br>
