@@ -70,7 +70,7 @@ delete from <table>
 
 - Commit & Rollback
   - 작업 중 실수로 데이터 손실을 발생시키지 않기 위해 사용
-  - Table Create 등의 DDL에는 Rollback 적용 안됨!
+  - Table Create 등의 **DDL에는 Rollback 적용 안됨!**
 
 <br>
 
@@ -95,6 +95,91 @@ COMMIT;  또는  ROLLBACK;
 
 ---
 
+## Join
+
+- MySQL에서 full (outer join) 예약어는 먹히지 않음
+
+<br>
+
+### Inner Join
+
+```sql
+#과목별 담당 교수명
+select s.*, p.name as 'prof. name'
+  from Subject s inner join Prof p on s.prof = p.id;
+
+#과목별 학생수
+select e.subject, max(s.name) as 'subject name', count(*) as '학생수'
+  from Enroll e inner join Subject s on e.subject = s.id
+ group by e.subject;
+
+#역사 과목의 학생 목록
+select s.name, s.birth
+  from Enroll e inner join Student s on e.student = s.id
+                inner join Subject sbj on e.subject = sbj.id
+ where sbj.name = '역사';
+
+#특정과목(국어)과목을 듣는 서울 거주 학생 목록 (과목명, 학번, 학생명)
+select sbj.name, s.id, s.name
+  from Enroll e inner join Student s on e.student = s.id
+                inner join Subject sbj on e.subject = sbj.id
+ where sbj.name = '국어' and s.addr = '서울';
+
+#역사 과목을 수강중인 지역별 학생수 (지역, 학생수)
+select substring(s.addr,1,2) as a, count(*) as student_cnt
+  from Enroll e inner join Student s on e.student = s.id
+                inner join Subject sbj on e.subject = sbj.id
+ where sbj.name = '역사' group by a;
+```
+
+<br>
+
+### Outer Join
+
+- left, right 기준에 따라 조건(where)에 해당하는 기준 테이블 값은 모두 반환
+- 기준 테이블 이외의 테이블 값은 없으면 null
+
+```sql
+# 결과 튜플이 Dept의 레코드 개수만큼 반환
+select *
+  from Dept d left outer join Emp e on d.captain = e.id;
+
+# 결과 튜플이 Emp의 레코드 개수만큼 반환
+select *
+  from Dept d right outer join Emp e on d.captain = e.id;
+```
+
+<br>
+
+### Full Outer Join
+
+- mysql에는 Full Outer Join이 없음
+- Left Outer Join과 Right Outer Join의 **Union**으로 구현
+
+```sql
+select * from Dept d left outer join Emp e on d.captain = e.id
+Union
+select * from Dept d right outer join Emp e on d.captain = e.id;
+```
+
+<br>
+
+### Cross Join
+
+- CROSS JOIN = 상호 조인
+- 한 쪽 테이블의 모든 행들과 다른 테이블의 모든 행을 조인
+- 결과 개수는 두 테이블의 행의 개수를 곱한 개수
+
+```sql
+select *
+  from Dept cross join Emp;
+
+-- from에서의 , 는 cross join과 같음
+select * from Dept, Emp;
+```
+
+---
+
 ## Note.
 
 - 쿼리문 실행 순서
@@ -102,3 +187,23 @@ COMMIT;  또는  ROLLBACK;
 - Select 절에서 정의한 Alias는 이후 절에서도 사용 가능.
 - OR Mapping(ORM) 때문에 Join 사용 빈도수가 많지 않을 것.
 - `select 그냥, from 2칸 공백, where 1칸 공백`으로 하면 보기 좋음
+- MySQL에서 full outer join 명령어는 먹히지 않음
+- 관계형 DB 용어
+  - table = relation
+  - row = tuple = record
+  - column = attribute = field
+
+<br>
+
+- foreign key ON/OFF
+
+```sql
+set foreign_key_checks=0; -- OFF
+set foreign_key_checks=1; -- ON
+```
+
+- table 구조 보기
+
+```sql
+desc <table-name>; -- descend 아니고 "describe" 약어.
+```
