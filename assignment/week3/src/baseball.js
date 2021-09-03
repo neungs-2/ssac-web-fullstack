@@ -24,7 +24,7 @@ const handleInput = (obj, maxLength) => {
 // input 확인
 const makeSureInput = (inputArray) => {
   const inputSet = new Set(inputArray);
-  if ($inputNumber.value == '' || inputSet.size < NUM_LENGTH) {
+  if ($inputNumber.value == '' || inputSet.size < NUM_LENGTH || inputArray[0] == 0) {
     alert('규칙에 맞는 숫자를 입력해주세요.');
     return true;
   }
