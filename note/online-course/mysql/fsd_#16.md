@@ -151,6 +151,13 @@ select *
 
 <br>
 
+#### Tip.
+
+- 쿼리 성능을 위해서 outer join은 무조건 뒤로 빼주는 것이 좋음
+- inner join 연산들 사이에 위치하면 성능 낮아짐
+
+<br>
+
 ### Full Outer Join
 
 - mysql에는 Full Outer Join이 없음
