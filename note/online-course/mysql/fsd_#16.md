@@ -1,4 +1,4 @@
-# MySQL-SQL 한방에 정리하기 Part2 - DML,T CL
+# MySQL-SQL 한방에 정리하기 Part2 - DML,TCL
 
 <br>
 
