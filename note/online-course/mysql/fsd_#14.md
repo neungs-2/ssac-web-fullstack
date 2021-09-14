@@ -17,7 +17,9 @@ mysql> show Databases
 mysql> create database testdb;
 ```
 
-<br>
+<br><br>
+
+---
 
 ## 사용자 추가(권한 부여)
 
@@ -38,7 +40,9 @@ mysql> GRANT ALL privileges ON DB명.* TO 계정아이디@locahost IDENTIFIED BY
 flush privileges; -- 권한 적용
 ```
 
-<br>
+<br><br>
+
+---
 
 ## Table 추가
 
@@ -69,7 +73,7 @@ create table Emp(
 ...
 ```
 
-<br>
+<br><br>
 
 ---
 
@@ -149,11 +153,11 @@ END
 call sp_test_emp(250);
 ```
 
-<br>
+<br><br>
 
 ---
 
-### Tip. 함수 생성 시 ERROR 1418 발생
+## Tip. 함수 생성 시 ERROR 1418 발생
 
 - 함수 설정 오류
 - root 계정으로 다음 쿼리를 실행
@@ -170,7 +174,7 @@ SET GLOBAL log_bin_trust_function_creators='ON';
 
 <br>
 
-#### 해결
+### 해결
 
 ![image](https://user-images.githubusercontent.com/60606025/131535906-cefdfa1e-4bc8-428e-918d-411292ed2740.png)
 
