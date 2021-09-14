@@ -44,6 +44,8 @@ select * from(
 
 ```
 
+<br>
+
 - ascii('A’) --> 65
 - char(65, 66) --> A, B
 - length(‘문자’) : ‘문자’의 실제 바이트 수
