@@ -47,7 +47,7 @@ delete from <table>
   - 실제 동작이 insert 실행(오류), 삭제, 새로운 값으로 업데이트
     - 따라서 id(index)가 건너뛰어진 것 처럼 보임
 
-<br>
+<br><br>
 
 ---
 
@@ -91,7 +91,7 @@ rollback to savepoint x;
 COMMIT;  또는  ROLLBACK;
 ```
 
-<br>
+<br><br>
 
 ---
 
@@ -188,6 +188,8 @@ select *
 -- from에서의 , 는 cross join과 같음
 select * from Dept, Emp;
 ```
+
+<br><br>
 
 ---
 
