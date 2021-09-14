@@ -166,7 +166,7 @@ Truncate <table-name>;
   - 객체, 공간 자체를 삭제
   - 되돌리기 불가능
 
-<br>
+<br><br>
 
 ---
 
@@ -199,7 +199,7 @@ set global time_zone = 'UTC';    -- root authority
 
 ```
 
-<br>
+<br><br>
 
 ---
 
