@@ -45,6 +45,7 @@ select * from(
 ```
 
 <br>
+<br>
 
 - ascii('A’) --> 65
 - char(65, 66) --> A, B
