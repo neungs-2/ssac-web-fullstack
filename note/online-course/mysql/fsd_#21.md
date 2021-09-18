@@ -23,7 +23,7 @@
 - `JSON_PRETTY()` : 들여쓰기를 포함, 보기 좋게 JSON 출력
 - `JSON_OBJECT()` : 문자열 형태가 아닌 key, value 쌍 JSON 생성
 - `JSON_ARRAY()` : JSON을 배열 형태로 작성 및 변환
-- `JSON_EXTRACT()` : 인라인 패스(->)처럼 특정값만 추출
+- `JSON_EXTRACT()` : 인라인 패스(->, ->>)처럼 특정값만 추출
 - `JSON_VALUE()` : 특정 값 추출, 출력 타입 정의 가능
 - `JSON_QUOTE()` : 특정 값 추출 + 큰 따옴표
 - `JSON_UNQUOTE()` : 특정 값 추출 + 큰 따옴표 제거
