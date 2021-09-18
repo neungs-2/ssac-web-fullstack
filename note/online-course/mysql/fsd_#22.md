@@ -125,8 +125,6 @@ UseCase Diagram (요구 사항 분석)
 
 ---
 
-## Note.
-
 ### UseCase Diagram 작성
 
 - Tools
