@@ -94,3 +94,29 @@ module.exports = {
   <script src="assets/bundle.js"></script>
 </body>
 ```
+
+<br><br>
+
+---
+
+## create-react-app
+- 복잡한 과정을 편하게 줄일 수 있는 방법
+
+<br>
+### 방법1 
+- `npm install -g create-react-app` 으로 cra 설치
+- `create-react-app 생성할-프로젝트-폴더명` 으로 생성할 프로젝트 폴더에서 cra 실행
+
+### 방법2
+- 미리 설치하지 않고 `**npx create-react-app 생성할-프로젝트-폴더명**` 으로 설치 없이 한번에 실행
+
+***404 Error 발생 시***
+- 에러 메시지 : npm ERR! 404 Not Found - GET https://registry.npmjs.org/creat-react-app - Not found 
+- **trouble shooting**
+  - 1) 방법 1을 이용하기
+  - 2) `npm config set registry http://registry.npmjs.org` 를 실행 후 방법2 실행
+
+### CRA 설치 이후
+- `npm start` 혹은 `yarn start`로 실행하여 3000번 포트에서 실행 가능
+- `npm test` 혹은 `yarn test`를 통해 테스트 실행 가능
+- `npm run build` 혹은 `yarn build`를 통해 번들 생성
