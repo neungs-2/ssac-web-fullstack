@@ -103,6 +103,7 @@ module.exports = {
 - 복잡한 과정을 편하게 줄일 수 있는 방법
 
 <br>
+
 ### 방법1 
 - `npm install -g create-react-app` 으로 cra 설치
 - `create-react-app 생성할-프로젝트-폴더명` 으로 생성할 프로젝트 폴더에서 cra 실행
