@@ -100,24 +100,48 @@ module.exports = {
 ---
 
 ## **create-react-app**
+
 - 복잡한 과정을 편하게 줄일 수 있는 방법
 
 <br>
 
-### 방법1 
+### 방법1
+
 - `npm install -g create-react-app` 으로 cra 설치
 - `create-react-app 생성할-프로젝트-폴더명` 으로 생성할 프로젝트 폴더에서 cra 실행
 
 ### 방법2
+
 - 미리 설치하지 않고 `**npx create-react-app 생성할-프로젝트-폴더명**` 으로 설치 없이 한번에 실행
 
-***404 Error 발생 시***
-- 에러 메시지 : npm ERR! 404 Not Found - GET https://registry.npmjs.org/creat-react-app - Not found 
+**_404 Error 발생 시_**
+
+- 에러 메시지 : npm ERR! 404 Not Found - GET https://registry.npmjs.org/creat-react-app - Not found
 - **trouble shooting**
-  - 1) 방법 1을 이용하기
-  - 2) `npm config set registry http://registry.npmjs.org` 를 실행 후 방법2 실행
+  - 1. 방법 1을 이용하기
+  - 2. `npm config set registry http://registry.npmjs.org` 를 실행 후 방법2 실행
 
 ### CRA 설치 이후
+
 - `npm start` 혹은 `yarn start`로 실행하여 3000번 포트에서 실행 가능
 - `npm test` 혹은 `yarn test`를 통해 테스트 실행 가능
 - `npm run build` 혹은 `yarn build`를 통해 번들 생성
+
+<br>
+
+---
+
+### **Tip.**
+
+<br>
+
+**_팀원과 동일한 node_modules 구성_**
+
+- git에 팀원 package-lock.json 존재 시
+  - `npm ci package-lock.json` 사용(권장)
+- git에 팀원 package.json 만 존재 시
+  - `npm install package.json` 사용
+
+<br>
+
+- 세부사항은 Repo 중 **TIL/trouble-shooting/npm_install_404_Error** 참고
