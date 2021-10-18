@@ -112,7 +112,7 @@ module.exports = {
 
 ### 방법2
 
-- 미리 설치하지 않고 `**npx create-react-app 생성할-프로젝트-폴더명**` 으로 설치 없이 한번에 실행
+- 미리 설치하지 않고 `npx create-react-app 생성할-프로젝트-폴더명` 으로 설치 없이 한번에 실행
 
 **_404 Error 발생 시_**
 
