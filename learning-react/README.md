@@ -72,7 +72,6 @@ module.exports = {
 - 웹팩 실행 가능한 지름길 명령어 (원하면 추가)
 - package.js 파일에 npm 스크립트 추가
 - 추가 후 `npm run build` 로 명령 가능
-- 개인적으로 큰 메리트 없는 듯
 
 ```sh
 "script":{
