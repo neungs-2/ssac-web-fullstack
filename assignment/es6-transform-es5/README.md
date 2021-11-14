@@ -22,10 +22,7 @@ const removeNames = (user) => {
 };
 
 // 변경할 compose 함수
-const compose =
-  (...fns) =>
-  (obj) =>
-    fns.reduce((c, fn) => fn(c), obj);
+const compose = (...fns) => (obj) => fns.reduce((c, fn) => fn(c), obj);
 
 console.log(compose(fullName, appendAddr, removeNames)(u));
 // {id:1, fullName:'Gildong Hong', addr:'Seoul'}
