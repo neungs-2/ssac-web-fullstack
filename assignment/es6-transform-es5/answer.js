@@ -13,17 +13,17 @@ const removeNames = (user) => {
   return user;
 };
 
+// 모범답안
 function compose() {
-  const fns = arguments;
+  var fns = arguments;
 
-  return function runRecursion(obj, idx = fns.length - 1) {
-    if (idx === 0) {
-      return fns[idx](obj);
+  return function rfn(obj, i) {
+    i = i || 0;
+    if (i < fns.length) {
+      return rfn(fns[i](obj), i + 1);
     }
-
-    const userInfo = runRecursion(obj, idx - 1);
-    return fns[idx](userInfo);
   };
+  return rfn(obj);
 }
 
 console.log(compose(fullName, appendAddr, removeNames)(u));
