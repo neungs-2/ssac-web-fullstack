@@ -185,7 +185,7 @@ SET GLOBAL log_bin_trust_function_creators='ON';
 ## Note.
 
 - 변수 규칙 등을 만드는 것이 좋음
-  - ex) parameter는 *로 시작, 내부변수는 v*로 시작
+  - ex) parameter는 \*로 시작, 내부변수는 v\*로 시작
 - 한글은 1글자에 3바이트, 영문은 1바이트
   - `select length('한들abc')` --> 9
 - length는 바이트 수, char_length는 글자 길이 수
