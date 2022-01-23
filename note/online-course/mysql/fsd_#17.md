@@ -226,7 +226,8 @@ END
 ```sql
 DROP Procedure IF EXISTS <procedure-name>;        -- cf, Alter procedure
 DELIMITER $$
-CREATE Procedure <procedure-name>([IN | OUT | INOUT] <param> <type>, ..) BEGIN
+CREATE Procedure <procedure-name>([IN | OUT | INOUT] <param> <type>, ..)
+BEGIN
 ...	...
 END $$
 DELIMITER ;
