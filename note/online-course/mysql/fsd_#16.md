@@ -36,9 +36,16 @@ delete from <table>
 - order by, rand()
   - order by col1 is null ASC, col1 ASC
   - order by rand() --> 무작위 정렬
+
 - limit a, limit a, b
   - a 부터 b개를 반환
-- group by, having
+
+- group by ~ having
+  - from절 subquery에서 사용한 alias는 본문에서도 사용됨
+  - group by에서는 상단에서 (select ~) 사용한 alias를 적용 가능 
+    - 상단의 sql문이 group by의 서브 쿼리처럼 동작
+- column name = alias라면 같은 column이 두개 생성되므로 alias를 유니크하게 지어라.
+
 - case when ~ else ~ end
 - on duplicate key update ...
   - unique index 를 걸어서 같은 값을 업로드 못할 때 새로운 값으로 업데이트 시킴
