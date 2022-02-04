@@ -44,3 +44,62 @@
 - `JSON_OBJECTAGG()` : 전체 JSON을 취합하여 Object로 출력
 - `JSON_STORAGE_SIZE()` : JSON 데이터가 차지하는 크기
 - `JSON_STORAGE_FREE()` : JSON 컬럼의 여유공간, JSON 있으면 항상 0
+
+<br>
+
+**_JSON_VALID()_**
+
+- 유효성 검사
+- key 값에 **따옴표** 썼는지 확인
+- `key: value` 형태인지
+- 유효하면 1 (true), 유효하지 않으면 0 (false)
+
+<br>
+
+**_JSON_OBJECT()_**
+
+```sql
+-- 기존 입력 형태
+Update Emp set remark = '{"addr":"서울", "age":28}';
+
+-- json_object 사용
+Update Emp set remark = json_object("addr", "서울", "age", 28);
+```
+
+<br>
+
+**_JSON_EXTRACT() / JSON_VALUE()_**
+
+- 인라인 패스처럼 특정값 추출 / + 출력 형태 지정
+  - 인라인 패스: -> , ->>
+
+```sql
+-- '{"addr":"서울", "age":28}'
+-- $는 루트 위치를 나타냄
+select remark -> '$.addr' from emp; --"서울"
+select remark ->> '$.addr' from emp; -- 서울 (따옴표 제거)
+
+select json_extract(remark, '$.addr') from emp; -- "서울"
+select json_unquote(select json_extract(remark, '$.addr') from emp); -- 서울
+
+select json_value(remark, '$.age') from emp; -- 28
+select json_value(remark, '$.age' returning decimal(4,2)) from emp; --28.00
+```
+
+<br>
+
+**_JSON_SEARCH()_**
+
+```sql
+--'{"addr":"서울", "age":28, "family":[{"name":"논개", "relation":"모"}]}'
+select json_search(remark, 'one', '모') from emp; --"$.family[0].relation"
+select json_value(remark, "$.famaily[0].relation") from emp; -- "모"
+```
+
+<br>
+
+**_JSON\_()_**
+
+<br>
+
+**_JSON\_()_**
