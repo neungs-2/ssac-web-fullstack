@@ -34,7 +34,8 @@
 - `JSON_SEARCH()` : 특정 값으로 JSON 위치 검색
 - `JSON_CONTAINS()` : JSON에 특정 값의 존재 여부 확인
 - `JSON_REPLACE()` : JSON에 특정 값 변경
-- `JSON_SET()` : JSON에 특정 key, value 제거
+- `JSON_INSERT()` : JSON 데이터에 특정 key, value 쌍을 추가
+- `JSON_SET()` : JSON 데이터에서 특정 key에 해당되는 값만 변경
 - `JSON_REMOVE()` : JSON에 특정 key, value 제거
 - `JSON_MERGE()` : JSON에 값 추가 (MySQL8에서 deprecated로 변경)
 - `JSON_MERGE_PRESERVE()` : JSON의 특정 위치 값 변경 (기존 값 유지)
@@ -59,6 +60,7 @@
 **_JSON_OBJECT()_**
 
 ```sql
+-- remark는 JSON 데이터가 있는 attribute
 -- 기존 입력 형태
 Update Emp set remark = '{"addr":"서울", "age":28}';
 
@@ -98,8 +100,54 @@ select json_value(remark, "$.famaily[0].relation") from emp; -- "모"
 
 <br>
 
-**_JSON\_()_**
+**_JSON_CONTAINS()_**
+
+```sql
+-- String이면 따옴표 내부에 쌍따옴표, Integer에는 따옴표만
+select json_contains(remark, '"서울"', '$.addr') from Emp; -- 1 (true)
+select json_contains(remark, '48', '$.age') from Emp; -- 0 (false)
+
+-- 조건으로 사용하는 방법
+select * from Emp where json_contains(remark, '28', '$.age');
+-- 위와 같은 쿼리들
+select * from Emp where json_value(remark, '$.age') = 28;
+select * from Emp where remark ->> '$.age' = 28;
+```
 
 <br>
 
-**_JSON\_()_**
+**_JSON_REPLACE vs JSON_INSERT vs JSON_SET_**
+
+```sql
+-- JSON_REPLACE는 이미 존재하는 JSON 내부 값을 변경
+select json_replace(remark, '$.age', remark ->> '$.age' * 100)
+  from Emp
+ where remark ->> '$.age' = 48;
+
+-- JSON_INSERT는 해당 값이 없다면 삽입, 기존에 있던 row는 덮어쓰지 않고 유지
+select json_insert(remark, '$.age', 10)
+  from Emp
+ where remark is not null;
+
+-- JSON_SET은 해당 값이 없다면 삽입, 있다면 덮어쓰기! --> 많이 씀
+
+select json_set(remark, '$.age', 10)
+  from Emp
+ where remark is not null;
+```
+
+<br>
+
+**_JSON_MERGE_PRESERVE vs JSON_MERGE_PATCH_**
+
+```sql
+-- JSON_MERGE_PRESERVE는 복수의 JSON을 합병하되 기존에 있던 값은 덮어쓰지 않고 유지
+select json_merge_preserve(remark, json_object('id',id), json_object('addr', '대구'))
+  from Emp
+ where remark is not null;
+
+---JSON_MERGE_PATCH는 복수의 JSON을 합병하되 기존에 있던 값을 갱신
+select json_merge_patch(remark, json_object('id',id), json_object('addr', '대구'))
+  from Emp
+ where remark is not null;
+```
