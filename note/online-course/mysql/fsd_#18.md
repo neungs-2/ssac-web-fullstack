@@ -67,15 +67,28 @@ select * from(
 - substring_index : 문자를 정해진 구분자로 잘라서 정해진 위치 값을 반환
 
 ```sql
-ascii('A'), char(65, 66)
+ascii('A')
+char(65, 66)
+
 length, char_length, bit_length, sign
+
 elt(<idx>, 'str1', 'str2', ..), field('s1', 's0', 's1', 's2')
 find_in_set('s1', 's0,s1,s2')
-instr('str', 't'), locate('s1', 's0s1s2'), insert('12345', 3, 0, '/')
-format(123456789,0), format(789.012356, 4), truncate(789.012356, 4)
-left('abc', 2), upper, lower, lpad('5', 2, '0'), rpad('15', 3, '0')
+instr('str', 't')
+locate('s1', 's0s1s2')
+insert('12345', 3, 0, '/')
+
+format(123456789,0), format(789.012356, 4)
+truncate(789.012356, 4)
+left('abc', 2), upper, lower
+
+lpad('5', 2, '0')
+rpad('15', 3, '0')
+
 reverse, repeat, space, replace('abcdefg', 'cde', 'xxx')
+
 trim, trim([both|leading|trailing] 's' from 'ssstrss'), ltrim, rtrim
+
 substring('str', <idx>, <length>)
 substring_index('a,b,c', ',', 2)  -- a,b (,를 기준으로 두번째까지)
 substring_index('a,b,c', ',', -1) -- c  (-1은 ,로 잘라낸 마지막 값)
