@@ -156,6 +156,8 @@
 
 ---
 
+<br>
+
 ## **Sargable (Search ARGument ABLE) Query**
 
 - Sargable: 검색 시 인덱스를 효율적으로 타는지
@@ -174,6 +176,97 @@
 
 ## **Fulltext Index (Text Search)**
 
+- `%`로 검색 시 원하는 결과가 나오지 않는 경우가 많음
+  - `%검색어`는 인덱스를 잡지 못함
+  - `%조선%`을 Like로 검색 시 조선말고 고조선도 나옴
+  - 이런 경우 Fulltext Index 사용
+
+<br>
+
+- **Fulltext Index**
+  - char, varchar, text 타입
+  - 여러 컬럼을 동시에 인덱스 생성 가능
+  - 기본 3글자 이상
+
+<br>
+
+- **불용어**
+  - '은/는/이/가' 등 조사나 '가까스로' 같은 단어들
+  - 불용어 설정 시 인덱싱에서 제외되어 인덱스 크기도 줄일 수 있음
+  - 기본 불용어는 영어로 되어있음
+
+<br>
+
+- **불용어 추가**
+  - 불용어 조회: `select * from information_schema.innodb_ft_default_stopword;`
+  - 정보 조회: `show variables like 'innodb_ft%';`
+  - 설정: `/etc/my.cnf`, 설정 이후 재시작 `systemctl restart mysqld`
+  - 한글 불용어를 위한 설정 ![image](https://user-images.githubusercontent.com/60606025/153691261-9bb1492e-78df-453f-9d4d-3eb341d83e81.png)
+  - 불용어 테이블 생성
+    - ex) `CREATE TABLE StopWord (VALUE VARCHAR(31) NOT NULL);`
+  - 불용어 추가
+    - ex) `INSERT INTO StopWord(value) VALUES ('가까스로'),('가령'),('각자'),('각종')...`
+
+<br>
+
+- **Fulltext Index 추가 방법**
+
+  - Fulltext Index 생성
+
+    ```sql
+      -- When Creation
+      CREATE TABLE ... (col1 ..,col2 .., FULLTEXT <index-name> (col-name, ..));
+
+      -- When Altering
+      ALTER TABLE ... ADD FULLTEXT (col..);
+
+      -- Create Index
+      CREATE FULLTEXT INDEX <index-name> ON <table-name> (col-name, ..);
+    ```
+
+  - `innodb_ft_aux_table`에 테이블 지정
+
+    ````sql
+    set global innodb_ft_aux_table = '<Schema명>/<table명>'; -- global 실행 안되면 root 계정으로 시도
+    show variables like 'innodb_ft%'; --aux table 변경 확인
+
+          -- optimaize 적용 (Fulltext Index만 적용하기 위해 아래와 같이 함)
+          SET GLOBAL innodb_optimize_fulltext_only = ON;
+          OPTIMIZE TABLE <table명>;
+          SET GLOBAL innodb_optimize_fulltext_only = OFF;
+
+          select * from information_schema.innodb_ft_index_table; -- 적용됐는지 확인
+        ```
+
+    <br>
+    ````
+
+- **Fulltext Index 검색**
+
+  - 검색 옵션
+
+    - `In Natural Language Mode` : 자연어 검색모드 (일반적인 단어 검색)
+    - `In Query Expansion`: 단어 사전 사용 (단, 영어 버전만 존재)
+      - ex) Database 검색 시 MySQL, MsSQL, Oracle, MongoDB 등 조회
+    - `In Boolean Mode`: Search Expansion 사용 (조건 검색)
+      - `*`: partial search, `+`: required search, `-`: excluded search
+
+    ```sql
+    WHERE MATCH(index_columns..) AGAINST (expr search_modifier)
+      search_modifier
+      { [IN NATURAL LANGUAGE MODE]  -- default option
+        | IN NATURAL LANGUAGE MODE WITH QUERY EXPANSION
+        | IN BOOLEAN MODE
+        | WITH QUERY EXPANSION
+      }
+
+    -- example
+    select title, contents
+      from Notice
+     where match(title, contents) against('조선*' IN BOOLEAN MODE);
+
+    ```
+
 ---
 
 <br>
@@ -189,5 +282,8 @@
 - Index 걸고 난 후 `optimize table <table 명>;` 쿼리를 쳐서 적용!
   - optimize 이후 `analyze table <table 명>;` 적용하면 인덱스 선택이 빨라짐
   - MySQL 8 이후 옵티마이저 자체가 좋아져서 안해도 큰 상관은 없음
+
+<br>
+
 - Index 걸 때 실행 순서에 맞게 우선순위를 주어 Index 설정해야 효율적
   - 실행순서가 where 조건 걸고 group by 적용 후 select 이므로 순서에 맞게 index를 지정해야 효과가 좋음 (사용되는 Column 순서대로)
