@@ -273,6 +273,74 @@
 
 ## **Partition (Big Table Partitioning)**
 
+- 테이블에 데이터가 많이 쌓일 시 테이블을 쪼개서 관리하는 것
+- FK 지정 불가, FK 없어야만 Partition 나눌 수 있음
+- **Partition Key**: 나누는 기준
+- PK 지정할 경우 PK가 **Partition Key**가 됨
+- 아래 예시에서 `enteryear`가 Partition key로 2000년 미만, 2010년 미만 그 이상으로 나뉨
+
+```sql
+-- example
+create table PartiRangeTest (
+  studentno varchar(7) not null,
+  enteryear smallint not null,
+  studentname varchar(31) not null
+  )
+
+Partition by RANGE(enteryear) (
+  partition p1 values less than(2000),
+  partition p2 values less than(2010),
+  partition p3 values less than MAXVALUE
+);
+
+-- p3를 2020년 기준으로 다시 쪼개기
+Alter table PartiRangeTest
+  REORGANIZE Partition p3 INTO (
+    partition p3 values less than (2020),
+    partition p4 values less than MAXVALUE
+  );
+
+optimize table PartiRangeTest; -- optimize 해줘야 인식함
+
+-- p1, p2 합치기
+Alter table PartiRangeTest
+REORGANIZE Partition p1, p2 INTO (
+  partition p1_2 values less than(2010)
+);
+
+optimize table PartiRangeTest;
+
+-- partition 삭제
+Alter table PartiRangeTest DROP Partition p1_2;
+
+optimize table PartiRangeTest;
+
+```
+
+<br>
+
+**_Partition Type_**
+
+- **Range** : 특정 row 값 기준으로 나눔
+- **List Column** : 특정 column item 종류로 나눔
+- 거의 위의 두개를 씀, 아래의 방법은 어느 파티션에 어느 데이터가 들어갔는지 알 수 없어서 잘 안씀
+- **Hash** : 해싱 알고리즘으로 알아서 나뉨
+- **Key** : Partition key 없어도 Mysql이 알아서 나눠줌
+
+<br>
+
+- 파티션을 나누고 조건문에 Partition key를 기준으로 탐색
+- 실제 directory (/var/lib/mysql/<schema명>) 보면 테이블 별 파일 쪼개져 있음
+
+  ```sql
+  select *
+    from information_schema.partitions
+  where table_name='PartiRangeTest';
+
+  explain select * from PartiRangeTest
+          where enteryear = 2018;
+  ```
+
 ---
 
 <br>
