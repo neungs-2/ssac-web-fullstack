@@ -24,7 +24,11 @@ const handleInput = (obj, maxLength) => {
 // input 확인
 const makeSureInput = (inputArray) => {
   const inputSet = new Set(inputArray);
-  if ($inputNumber.value == '' || inputSet.size < NUM_LENGTH || inputArray[0] == 0) {
+  if (
+    $inputNumber.value == '' ||
+    inputSet.size < NUM_LENGTH ||
+    inputArray[0] == 0
+  ) {
     alert('규칙에 맞는 숫자를 입력해주세요.');
     return true;
   }
@@ -33,16 +37,14 @@ const makeSureInput = (inputArray) => {
 // 정답 생성
 const createAnswer = () => {
   const answerList = new Array();
-  let cnt = 0;
+  let count = 0;
 
-  while (cnt < NUM_LENGTH) {
+  while (count < NUM_LENGTH) {
     let answerNum = Math.floor(Math.random() * 10);
-    if (cnt == 0 && answerNum == 0) continue;
-    if (answerList.includes(answerNum)) {
-      continue;
-    } else {
+    if (count == 0 && answerNum == 0) continue;
+    if (!answerList.includes(answerNum)) {
       answerList.push(answerNum);
-      cnt++;
+      count++;
     }
   }
   return answerList;
@@ -67,39 +69,39 @@ const slowAlert = (message) => {
   window.setTimeout(() => {
     alert(message);
     initGame();
-  }, 200);
+  }, 100);
 };
 
 // check 버튼 클릭 시
-$checkBtn.addEventListener('click', function () {
+$checkBtn.addEventListener('click', () => {
   const arrInput = ('' + $inputNumber.value).split('');
   if (makeSureInput(arrInput)) return;
 
-  let strikeCnt = 0;
-  let ballCnt = 0;
+  let strikeCount = 0;
+  let ballCount = 0;
   inning++;
 
   if (inning === 1) arrAnswer = createAnswer();
 
   for (let i = 0; i < NUM_LENGTH; i++) {
     if (arrAnswer[i] == arrInput[i]) {
-      strikeCnt++;
+      strikeCount++;
     } else if (arrAnswer.includes(+arrInput[i])) {
-      ballCnt++;
+      ballCount++;
     }
   }
 
-  insertCell(String(strikeCnt), $tableStrike);
-  insertCell(String(ballCnt), $tableBall);
+  insertCell(String(strikeCount), $tableStrike);
+  insertCell(String(ballCount), $tableBall);
 
-  if (strikeCnt === 3) {
+  if (strikeCount === 3) {
     slowAlert('승리하셨습니다!!');
-  } else if (inning === 9) {
+  }
+
+  if (inning === 9) {
     slowAlert('패배하셨습니다.\n정답:' + arrAnswer.join(''));
   }
 });
 
 // restart 버튼 클릭 시
-$restartBtn.addEventListener('click', function () {
-  initGame();
-});
+$restartBtn.addEventListener('click', initGame);
