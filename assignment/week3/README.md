@@ -22,7 +22,7 @@
 
 <br>
 
-## **Link** : https://techfulness.topician.com/
+## **Link** : https://baseball.techfulness.kr
 
 <br>
 
